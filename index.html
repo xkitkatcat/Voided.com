@@ -1,26 +1,135 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>uglyretardedfaggots.com</title>
+    <link rel="icon" type="image/x-icon" href="voided.png">
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        #backgroundVideo {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensure video covers the entire background */
+            opacity: 0.4; /* 40% opacity */
+            z-index: 0; /* Behind all other elements */
+        }
+        .bouncingText {
+            position: absolute;
+            font-size: 3em;
+            font-family: 'Comic Sans MS', sans-serif;
+            font-weight: bold;
+            user-select: none;
+            z-index: 2; /* Ensure text is above image and video */
+            -webkit-text-stroke: 2px black; /* Black border for readability */
+            text-stroke: 2px black; /* Standard property, less supported */
+        }
+        #centeredImage {
+            position: fixed;
+            width: 500px;
+            height: 500px;
+            z-index: 1; /* Image above video, below text */
+            border-radius: 1000em; /* Circular image */
+            cursor: pointer; /* Indicate clickability */
+            border: black solid 5px;
+        }
+    </style>
+</head>
+<body>
+    <video id="backgroundVideo" autoplay loop muted>
+        <source src="kanye.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <img id="centeredImage" src="voided.png" alt="Voided Image" onclick="window.open('https://fortnite.gg/reload-desert', '_blank')">
+    <div id="bouncingText1" class="bouncingText">VOIDED IS COOL</div>
+    <div id="bouncingText2" class="bouncingText">VOIDED IS A BRONY</div>
+    <script>
+        const textElement1 = document.getElementById('bouncingText1');
+        const textElement2 = document.getElementById('bouncingText2');
+        let customText1 = 'VOIDED IS A BRONY'; // First text, customizable
+        let customText2 = 'VOIDED IS A FAGGOT'; // Second text, customizable
+        textElement1.textContent = customText1;
+        textElement2.textContent = customText2;
 
-<img src="" 
-style="position:fixed;">
-<body style="background-color:rgb(20, 10, 0);"> 
-<style>
-body {
-background-image: url('https://i.imgur.com/RhTEFpS.png');
-}
-</style> 
-<div style="text-align: center; margin-top: 400px;"> 
-    
-    <img src="https://64.media.tumblr.com/013ba28c7a8fdf9a802b1876cb830535/264a4be22605a594-e3/s1280x1920/76ee2c8f22c1bdde311d67dc36d17c84207e8b0d.gifv" alt="Blug"> 
-  </div> 
+        // State for first text
+        let x1 = Math.random() * (window.innerWidth - textElement1.offsetWidth);
+        let y1 = Math.random() * (window.innerHeight - textElement1.offsetHeight);
+        let dx1 = 2; // Speed in x-direction
+        let dy1 = 2; // Speed in y-direction
 
-  <audio id="player" src="rap.mp3" loop></audio>
-<div style="text-align: center;">
-  <button onclick="document.getElementById('player').play()">Play</button> 
-  <button onclick="document.getElementById('player').pause()">Pause</button> 
-  <button onclick="document.getElementById('player').volume += 0.1">Vol +</button> 
-  <button onclick="document.getElementById('player').volume -= 0.1">Vol -</button> 
-</div>
+        // State for second text
+        let x2 = Math.random() * (window.innerWidth - textElement2.offsetWidth);
+        let y2 = Math.random() * (window.innerHeight - textElement2.offsetHeight);
+        let dx2 = 2; // Speed in x-direction
+        let dy2 = 2; // Speed in y-direction
 
+        // Color change timing
+        let lastColorChange = 0;
+        const colorChangeInterval = 500; // Change color every 500ms
+
+        function getRandomColor() {
+            const letters = '0123456789ABCDEF';
+            let color = '#';
+            for (let i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+
+        function animate(timestamp) {
+            // Update positions
+            x1 += dx1;
+            y1 += dy1;
+            if (x1 + textElement1.offsetWidth > window.innerWidth || x1 < 0) {
+                dx1 = -dx1;
+            }
+            if (y1 + textElement1.offsetHeight > window.innerHeight || y1 < 0) {
+                dy1 = -dy1;
+            }
+            textElement1.style.left = x1 + 'px';
+            textElement1.style.top = y1 + 'px';
+
+            x2 += dx2;
+            y2 += dy2;
+            if (x2 + textElement2.offsetWidth > window.innerWidth || x2 < 0) {
+                dx2 = -dx2;
+            }
+            if (y2 + textElement2.offsetHeight > window.innerHeight || y2 < 0) {
+                dy2 = -dy2;
+            }
+            textElement2.style.left = x2 + 'px';
+            textElement2.style.top = y2 + 'px';
+
+            // Update colors at specified interval
+            if (timestamp - lastColorChange >= colorChangeInterval) {
+                textElement1.style.color = getRandomColor();
+                textElement2.style.color = getRandomColor();
+                lastColorChange = timestamp;
+            }
+
+            requestAnimationFrame(animate);
+        }
+
+        // Adjust for window resize
+        window.addEventListener('resize', () => {
+            x1 = Math.min(x1, window.innerWidth - textElement1.offsetWidth);
+            y1 = Math.min(y1, window.innerHeight - textElement1.offsetHeight);
+            x2 = Math.min(x2, window.innerWidth - textElement2.offsetWidth);
+            y2 = Math.min(y2, window.innerHeight - textElement2.offsetHeight);
+        });
+
+        requestAnimationFrame(animate);
+    </script>
+</body>
 </html>
